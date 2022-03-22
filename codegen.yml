@@ -1,0 +1,26 @@
+schema: ${API_URL}
+documents: src/**/*.graphql
+generates:
+    ./src/generated/graphql.ts:
+        plugins:
+            - typescript
+            - typescript-operations
+            - typescript-react-apollo
+        config:
+            dedupeOperationSuffix: true
+            exportFragmentSpreadSubTypes: true
+            namingConvention: keep
+            scalars:
+                Date: 'string'
+                Time: 'string'
+                DateTime: 'string'
+            withComponent: false
+            withHOC: false
+            withHooks: true
+    ./src/generated/graphqlModules.d.ts:
+        plugins:
+            - typescript-graphql-files-modules:
+                type: string
+    ./src/generated/fragmentTypes.json:
+        plugins:
+            - fragment-matcher

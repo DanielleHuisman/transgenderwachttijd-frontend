@@ -1,0 +1,7 @@
+fragment ProviderFragment on Provider {
+    id
+    name
+    slug
+    website
+    scrapedAt
+}

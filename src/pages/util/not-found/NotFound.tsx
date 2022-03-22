@@ -2,7 +2,7 @@ import React from 'react';
 import {Helmet} from 'react-helmet';
 import {Button, Container} from 'reactstrap';
 
-export const NotFound = () => {
+export const NotFound: React.FC = () => {
     return (
         <Container>
             <Helmet title="Not Found" />

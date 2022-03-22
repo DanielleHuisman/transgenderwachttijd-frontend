@@ -1,0 +1,12 @@
+# import '../fragments/Location.graphql'
+# import '../fragments/Provider.graphql'
+
+query GetProviders {
+    providers {
+        ...ProviderFragment
+
+        locations {
+            ...LocationFragment
+        }
+    }
+}

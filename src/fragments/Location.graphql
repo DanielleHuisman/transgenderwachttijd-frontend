@@ -1,0 +1,7 @@
+fragment LocationFragment on Location {
+    id
+    name
+    address
+    postalCode
+    city
+}
