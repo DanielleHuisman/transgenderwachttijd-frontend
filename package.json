@@ -25,7 +25,7 @@
         "dev": "parcel public/index.html",
         "codegen": "dotenv graphql-codegen",
         "codegen:dev": "dotenv graphql-codegen --watch",
-        "translate": "i18next -c i18next.config.json"
+        "translate": "i18next"
     },
     "dependencies": {
         "@apollo/client": "^3.5.10",
