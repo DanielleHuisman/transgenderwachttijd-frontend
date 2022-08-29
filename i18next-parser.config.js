@@ -1,4 +1,5 @@
 module.exports = {
+    defaultNamespace: 'common',
     indentation: 4,
     input: [
         '**/*.{ts,tsx}'

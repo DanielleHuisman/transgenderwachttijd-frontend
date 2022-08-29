@@ -4,9 +4,11 @@ import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
 import {Button} from 'reactstrap';
 
 export const getStaticProps: GetStaticProps = async ({locale}) => {
+    console.log(locale);
+
     return {
         props: {
-            ...(await serverSideTranslations(locale as string, ['general:title', 'general:description']))
+            ...(await serverSideTranslations(locale as string, ['title', 'description']))
         }
     };
 };
@@ -16,8 +18,8 @@ const Home: NextPage = () => {
 
     return (
         <>
-            <h1>{t('general:title', 'transgenderwachttijd.nl')}</h1>
-            <p>{t('general:description', 'Tracking waiting times for transgender health care in the Netherlands.')}</p>
+            <h1>{t('title', 'transgenderwachttijd.nl')}</h1>
+            <p>{t('description', 'Tracking waiting times for transgender health care in the Netherlands.')}</p>
 
             <Button color="primary">Test</Button>
         </>

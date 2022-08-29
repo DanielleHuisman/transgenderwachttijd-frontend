@@ -29,7 +29,7 @@ pnpm dev
 ### Translations
 ```bash
 # Update translation files from the source code
-yarn run translate
+pnpm translate
 ```
 
 ## Production
