@@ -1,24 +1,45 @@
 {
-  "name": "transgenderwachttijd-frontend",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "next": "12.2.5",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
-  },
-  "devDependencies": {
-    "@types/node": "18.7.13",
-    "@types/react": "18.0.17",
-    "@types/react-dom": "18.0.6",
-    "eslint": "8.23.0",
-    "eslint-config-next": "12.2.5",
-    "typescript": "4.8.2"
-  }
+    "name": "transgenderwachttijd-frontend",
+    "description": "Tracking waiting times for transgender health care in the Netherlands.",
+    "version": "0.1.0",
+    "license": "UNLICENSED",
+    "private": true,
+    "contributors": [
+        "Daniel Huisman <daniel@huisman.me> (https://danielhuisman.io)"
+    ],
+    "repository": "github:DanielHuisman/transgenderwachttijd-frontend",
+    "keywords": [
+        "transgender",
+        "trans",
+        "wachttijd",
+        "waiting time",
+        "health care",
+        "gezondheidszorg"
+    ],
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint",
+        "translate": "i18next"
+    },
+    "dependencies": {
+        "next": "12.2.5",
+        "next-i18next": "^12.0.0",
+        "react": "18.2.0",
+        "react-dom": "18.2.0"
+    },
+    "devDependencies": {
+        "@types/node": "18.7.13",
+        "@types/react": "18.0.17",
+        "@types/react-dom": "18.0.6",
+        "@typescript-eslint/eslint-plugin": "^5.35.1",
+        "@typescript-eslint/parser": "^5.35.1",
+        "eslint": "8.23.0",
+        "eslint-config-google": "^0.14.0",
+        "eslint-config-next": "12.2.5",
+        "eslint-plugin-import": "^2.26.0",
+        "i18next-parser": "^6.5.0",
+        "typescript": "4.8.2"
+    }
 }
