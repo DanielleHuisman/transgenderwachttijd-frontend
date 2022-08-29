@@ -1,9 +1,21 @@
-import '../styles/globals.css';
 import type {AppProps} from 'next/app';
-import {appWithTranslation} from 'next-i18next';
+import Head from 'next/head';
+import {appWithTranslation, useTranslation} from 'next-i18next';
 
-const MyApp = ({Component, pageProps}: AppProps) => {
-    return <Component {...pageProps} />;
+import '../styles/globals.scss';
+
+const App = ({Component, pageProps}: AppProps) => {
+    const {t} = useTranslation();
+
+    return (
+        <>
+            <Head>
+                <title>{t('general:title', 'transgenderwachttijd.nl')}</title>
+            </Head>
+
+            <Component {...pageProps} />
+        </>
+    );
 };
 
-export default appWithTranslation(MyApp);
+export default appWithTranslation(App);

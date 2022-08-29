@@ -24,10 +24,12 @@
         "translate": "i18next"
     },
     "dependencies": {
+        "bootstrap": "^5.2.0",
         "next": "12.2.5",
         "next-i18next": "^12.0.0",
         "react": "18.2.0",
-        "react-dom": "18.2.0"
+        "react-dom": "18.2.0",
+        "reactstrap": "^9.1.4"
     },
     "devDependencies": {
         "@types/node": "18.7.13",
@@ -40,6 +42,7 @@
         "eslint-config-next": "12.2.5",
         "eslint-plugin-import": "^2.26.0",
         "i18next-parser": "^6.5.0",
+        "sass": "^1.54.5",
         "typescript": "4.8.2"
     }
 }
