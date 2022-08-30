@@ -12,7 +12,9 @@ RUN pnpm install
 
 # Rebuild the source code only when needed
 FROM node:lts-alpine AS builder
+RUN corepack enable
 WORKDIR /srv/app
+
 COPY --from=deps /srv/app/node_modules ./node_modules
 COPY . .
 
@@ -27,12 +29,12 @@ ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN addgroup --system --gid 1001 worker
-RUN adduser --system --uid 1001 worker
+RUN adduser --system --uid 1001 --ingroup worker worker
 
 COPY --from=builder /srv/app/public ./public
 
-COPY --from=builder --chown=worker:nodejs /srv/app/.next/standalone ./
-COPY --from=builder --chown=worker:nodejs /srv/app/.next/static ./.next/static
+COPY --from=builder --chown=worker:worker /srv/app/.next/standalone ./
+COPY --from=builder --chown=worker:worker /srv/app/.next/static ./.next/static
 
 USER worker
 

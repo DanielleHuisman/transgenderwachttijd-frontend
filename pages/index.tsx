@@ -1,5 +1,5 @@
 import type {GetStaticProps, NextPage} from 'next';
-import {useTranslation} from 'next-i18next';
+// import {useTranslation} from 'next-i18next';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
 import {Container} from 'reactstrap';
 
@@ -10,7 +10,7 @@ export const getStaticProps: GetStaticProps = async ({locale}) => ({
 });
 
 const Home: NextPage = () => {
-    const {t} = useTranslation();
+    // const {t} = useTranslation();
 
     return (
         <Container>
