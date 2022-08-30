@@ -18,12 +18,12 @@ export const Header: React.FC = () => {
             <Nav pills>
                 <NavItem>
                     <ActiveLink href="/" passHref>
-                        <NavLink>Graphs</NavLink>
+                        <NavLink>{t('graphs', 'Graphs')}</NavLink>
                     </ActiveLink>
                 </NavItem>
                 <NavItem>
                     <ActiveLink href="/about" passHref>
-                        <NavLink>About</NavLink>
+                        <NavLink>{t('about', 'About')}</NavLink>
                     </ActiveLink>
                 </NavItem>
             </Nav>
