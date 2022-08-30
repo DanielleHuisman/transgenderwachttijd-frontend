@@ -13,7 +13,7 @@ RUN pnpm install
 # Rebuild the source code only when needed
 FROM node:lts-alpine AS builder
 WORKDIR /srv/app
-COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /srv/app/node_modules ./node_modules
 COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED 1
