@@ -1,17 +1,13 @@
 import type {AppProps} from 'next/app';
-import Head from 'next/head';
 import {appWithTranslation} from 'next-i18next';
 
 import '../styles/globals.scss';
+import {Layout} from '../components/Layout';
 
 const App = ({Component, pageProps}: AppProps) => (
-    <>
-        <Head>
-            <title>transgenderwachttijd.nl</title>
-        </Head>
-
+    <Layout>
         <Component {...pageProps} />
-    </>
+    </Layout>
 );
 
 export default appWithTranslation(App);
