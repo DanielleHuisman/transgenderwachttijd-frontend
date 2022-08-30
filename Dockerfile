@@ -12,7 +12,9 @@ RUN pnpm install
 
 # Rebuild the source code only when needed
 FROM node:lts-alpine AS builder
+RUN corepack enable
 WORKDIR /srv/app
+
 COPY --from=deps /srv/app/node_modules ./node_modules
 COPY . .
 
