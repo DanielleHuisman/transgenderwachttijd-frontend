@@ -46,7 +46,8 @@ jobs:
   #       run: echo TODO
 
   publish:
-    needs: test
+    # needs: test
+    needs: build
     runs-on: ubuntu-latest
     if: ${{ github.ref == 'refs/heads/production' }}
     steps:
