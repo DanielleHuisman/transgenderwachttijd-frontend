@@ -1,0 +1,9 @@
+query GetProviders {
+    providers(
+        order: {
+            name: ASC
+        }
+    ) {
+        ...ProviderFragment
+    }
+}

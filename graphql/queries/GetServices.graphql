@@ -1,0 +1,9 @@
+query GetServices {
+    services(
+        order: {
+            name: ASC
+        }
+    ) {
+        ...ServiceFragment
+    }
+}
