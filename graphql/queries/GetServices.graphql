@@ -1,9 +1,9 @@
-query GetProviders {
-    providers(
+query GetServices {
+    services(
         order: {
             name: ASC
         }
     ) {
-        ...ProviderFragment
+        ...ServiceFragment
     }
 }

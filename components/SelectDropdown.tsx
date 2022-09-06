@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {DetailedHTMLProps, HTMLAttributes, useState} from 'react';
 import {
     Button,
     ButtonProps,
@@ -26,9 +26,12 @@ export interface SelectDropdownProps extends DropdownProps {
 
     toggleProps?: DropdownToggleProps;
     menuProps?: DropdownMenuProps;
+    wrapperProps?: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 }
 
-export const SelectDropdown: React.FC<SelectDropdownProps> = ({label, options, idPrefix, buttonLabel, buttonProps, toggleProps, menuProps, ...props}) => {
+export const SelectDropdown: React.FC<SelectDropdownProps> = ({
+    label, options, idPrefix, buttonLabel, buttonProps, toggleProps, menuProps, wrapperProps, ...props
+}) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
@@ -37,14 +40,16 @@ export const SelectDropdown: React.FC<SelectDropdownProps> = ({label, options, i
                 {label}
             </DropdownToggle>
             <DropdownMenu className="p-3" {...menuProps}>
-                {options.map(({value, label}) => (
-                    <FormGroup key={value} check>
-                        <Input id={idPrefix ? `${idPrefix}-${value}` : undefined} type="checkbox" />
-                        <Label for={idPrefix ? `${idPrefix}-${value}` : undefined} check>
-                            {label}
-                        </Label>
-                    </FormGroup>
-                ))}
+                <div {...wrapperProps}>
+                    {options.map(({value, label}) => (
+                        <FormGroup key={value} check>
+                            <Input id={idPrefix ? `${idPrefix}-${value}` : undefined} type="checkbox" />
+                            <Label for={idPrefix ? `${idPrefix}-${value}` : undefined} check>
+                                {label}
+                            </Label>
+                        </FormGroup>
+                    ))}
+                </div>
 
                 {buttonLabel && (
                     <div className="d-grid mt-2">

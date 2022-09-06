@@ -1,0 +1,6 @@
+fragment ServiceFragment on Service {
+    id
+    name
+    medicalName
+    description
+}

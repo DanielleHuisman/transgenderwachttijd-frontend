@@ -42,6 +42,16 @@ export type ArticleCategory = {
   slug: Scalars['String'];
 };
 
+export type ArticleCategoryOrder = {
+  name?: InputMaybe<Ordering>;
+  slug?: InputMaybe<Ordering>;
+};
+
+export type ArticleOrder = {
+  publishedAt?: InputMaybe<Ordering>;
+  title?: InputMaybe<Ordering>;
+};
+
 export type ArticleSource = {
   __typename?: 'ArticleSource';
   articles: Array<Article>;
@@ -63,6 +73,16 @@ export type ArticleSourceFeed = {
   url: Scalars['String'];
 };
 
+export type ArticleSourceFeedOrder = {
+  name?: InputMaybe<Ordering>;
+  scrapedAt?: InputMaybe<Ordering>;
+};
+
+export type ArticleSourceOrder = {
+  name?: InputMaybe<Ordering>;
+  slug?: InputMaybe<Ordering>;
+};
+
 export type Location = {
   __typename?: 'Location';
   address: Scalars['String'];
@@ -73,6 +93,16 @@ export type Location = {
   provider: Provider;
 };
 
+export type LocationOrder = {
+  city?: InputMaybe<Ordering>;
+  name?: InputMaybe<Ordering>;
+};
+
+export enum Ordering {
+  Asc = 'ASC',
+  Desc = 'DESC'
+}
+
 export type Provider = {
   __typename?: 'Provider';
   id: Scalars['UUID'];
@@ -82,6 +112,12 @@ export type Provider = {
   scrapedAt?: Maybe<Scalars['DateTime']>;
   slug: Scalars['String'];
   website: Scalars['String'];
+};
+
+export type ProviderOrder = {
+  name?: InputMaybe<Ordering>;
+  scrapedAt?: InputMaybe<Ordering>;
+  slug?: InputMaybe<Ordering>;
 };
 
 export type Query = {
@@ -98,15 +134,26 @@ export type Query = {
   locations: Array<Location>;
   provider: Provider;
   providers: Array<Provider>;
+  service: Service;
   serviceAgeGroup: ServiceAgeGroup;
   serviceAgeGroups: Array<ServiceAgeGroup>;
+  serviceOffering: ServiceOffering;
+  serviceOfferings: Array<ServiceOffering>;
+  serviceTime: ServiceTime;
+  serviceTimes: Array<ServiceTime>;
   serviceType: ServiceType;
   serviceTypes: Array<ServiceType>;
+  services: Array<Service>;
 };
 
 
 export type QueryArticleArgs = {
   pk?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type QueryArticleCategoriesArgs = {
+  order?: InputMaybe<ArticleCategoryOrder>;
 };
 
 
@@ -125,7 +172,37 @@ export type QueryArticleSourceFeedArgs = {
 };
 
 
+export type QueryArticleSourceFeedsArgs = {
+  order?: InputMaybe<ArticleSourceFeedOrder>;
+};
+
+
+export type QueryArticleSourcesArgs = {
+  order?: InputMaybe<ArticleSourceOrder>;
+};
+
+
+export type QueryArticlesArgs = {
+  order?: InputMaybe<ArticleOrder>;
+};
+
+
+export type QueryLocationsArgs = {
+  order?: InputMaybe<LocationOrder>;
+};
+
+
 export type QueryProviderArgs = {
+  pk?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type QueryProvidersArgs = {
+  order?: InputMaybe<ProviderOrder>;
+};
+
+
+export type QueryServiceArgs = {
   pk?: InputMaybe<Scalars['ID']>;
 };
 
@@ -135,8 +212,38 @@ export type QueryServiceAgeGroupArgs = {
 };
 
 
+export type QueryServiceAgeGroupsArgs = {
+  order?: InputMaybe<ServiceAgeGroupOrder>;
+};
+
+
+export type QueryServiceOfferingArgs = {
+  pk?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type QueryServiceTimeArgs = {
+  pk?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type QueryServiceTimesArgs = {
+  order?: InputMaybe<ServiceTimeOrder>;
+};
+
+
 export type QueryServiceTypeArgs = {
   pk?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type QueryServiceTypesArgs = {
+  order?: InputMaybe<ServiceTypeOrder>;
+};
+
+
+export type QueryServicesArgs = {
+  order?: InputMaybe<ServiceOrder>;
 };
 
 export type Service = {
@@ -157,6 +264,10 @@ export type ServiceAgeGroup = {
   offerings: Array<ServiceOffering>;
 };
 
+export type ServiceAgeGroupOrder = {
+  name?: InputMaybe<Ordering>;
+};
+
 export type ServiceOffering = {
   __typename?: 'ServiceOffering';
   ageGroups: Array<ServiceAgeGroup>;
@@ -166,6 +277,11 @@ export type ServiceOffering = {
   service: Service;
   times: Array<ServiceTime>;
   types: Array<ServiceType>;
+};
+
+export type ServiceOrder = {
+  medicalName?: InputMaybe<Ordering>;
+  name?: InputMaybe<Ordering>;
 };
 
 export type ServiceTime = {
@@ -178,6 +294,10 @@ export type ServiceTime = {
   offering: ServiceOffering;
 };
 
+export type ServiceTimeOrder = {
+  date?: InputMaybe<Ordering>;
+};
+
 export type ServiceType = {
   __typename?: 'ServiceType';
   id: Scalars['UUID'];
@@ -185,12 +305,25 @@ export type ServiceType = {
   offerings: Array<ServiceOffering>;
 };
 
+export type ServiceTypeOrder = {
+  name?: InputMaybe<Ordering>;
+};
+
 export type ProviderFragment = { __typename?: 'Provider', id: any, name: string, slug: string, website: string, scrapedAt?: any | null };
+
+export type ServiceFragment = { __typename?: 'Service', id: any, name: string, medicalName?: string | null, description?: string | null };
 
 export type GetProvidersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetProvidersQuery = { __typename?: 'Query', providers: Array<{ __typename?: 'Provider', id: any, name: string, slug: string, website: string, scrapedAt?: any | null }> };
 
+export type GetServicesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetServicesQuery = { __typename?: 'Query', services: Array<{ __typename?: 'Service', id: any, name: string, medicalName?: string | null, description?: string | null }> };
+
 export const ProviderFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ProviderFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Provider"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"website"}},{"kind":"Field","name":{"kind":"Name","value":"scrapedAt"}}]}}]} as unknown as DocumentNode<ProviderFragment, unknown>;
-export const GetProvidersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetProviders"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"providers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProviderFragment"}}]}}]}},...ProviderFragmentDoc.definitions]} as unknown as DocumentNode<GetProvidersQuery, GetProvidersQueryVariables>;
+export const ServiceFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ServiceFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Service"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"medicalName"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]} as unknown as DocumentNode<ServiceFragment, unknown>;
+export const GetProvidersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetProviders"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"providers"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"EnumValue","value":"ASC"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProviderFragment"}}]}}]}},...ProviderFragmentDoc.definitions]} as unknown as DocumentNode<GetProvidersQuery, GetProvidersQueryVariables>;
+export const GetServicesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetServices"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"services"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"EnumValue","value":"ASC"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ServiceFragment"}}]}}]}},...ServiceFragmentDoc.definitions]} as unknown as DocumentNode<GetServicesQuery, GetServicesQueryVariables>;
