@@ -67,6 +67,7 @@ jobs:
           docker pull $DOCKER_IMAGE:$GITHUB_SHA
           docker tag $DOCKER_IMAGE:$GITHUB_SHA $DOCKER_IMAGE:$TAG
           docker push $DOCKER_IMAGE:$TAG
+
  deploy:
    needs: publish
    runs-on: ubuntu-latest
