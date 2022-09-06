@@ -1,7 +1,7 @@
 import type {GetServerSideProps, NextPage} from 'next';
 import {useTranslation} from 'next-i18next';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
-import {ButtonGroup, Container} from 'reactstrap';
+import {Container} from 'reactstrap';
 
 import {SelectDropdown} from '../components/SelectDropdown';
 import {client} from '../graphql/apollo-client';

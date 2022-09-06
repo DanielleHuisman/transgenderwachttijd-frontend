@@ -6,6 +6,7 @@ specifiers:
   '@graphql-codegen/typed-document-node': ^2.3.3
   '@graphql-codegen/typescript': ^2.7.3
   '@graphql-codegen/typescript-operations': ^2.5.3
+  '@graphql-typed-document-node/core': ^3.1.1
   '@types/node': 18.7.15
   '@types/react': 18.0.18
   '@types/react-dom': 18.0.6
@@ -43,6 +44,7 @@ devDependencies:
   '@graphql-codegen/typed-document-node': 2.3.3_graphql@16.6.0
   '@graphql-codegen/typescript': 2.7.3_graphql@16.6.0
   '@graphql-codegen/typescript-operations': 2.5.3_graphql@16.6.0
+  '@graphql-typed-document-node/core': 3.1.1_graphql@16.6.0
   '@types/node': 18.7.15
   '@types/react': 18.0.18
   '@types/react-dom': 18.0.6
@@ -1165,7 +1167,6 @@ packages:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
       graphql: 16.6.0
-    dev: false
 
   /@humanwhocodes/config-array/0.10.4:
     resolution: {integrity: sha512-mXAIHxZT3Vcpg83opl1wGlVZ9xydbfZO3r5YfRSH6Gpp2J/PfdBP0wbDa2sO6/qRbcalpoevVyW6A/fI6LfeMw==}
