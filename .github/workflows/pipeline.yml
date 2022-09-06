@@ -68,23 +68,23 @@ jobs:
           docker tag $DOCKER_IMAGE:$GITHUB_SHA $DOCKER_IMAGE:$TAG
           docker push $DOCKER_IMAGE:$TAG
 
- deploy:
-   needs: publish
-   runs-on: ubuntu-latest
-   if: ${{ github.ref == 'refs/heads/production' }}
-   steps:
-     - name: Deploy to production server
-       env:
-         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-         SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
-         SERVER_USER: ${{ secrets.SERVER_USER }}
-         SERVER_HOST: ${{ secrets.SERVER_HOST }}
-       run: |
-         mkdir ~/.ssh
-         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-         chmod 600 ~/.ssh/id_rsa
-         echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
-         chmod 644 ~/.ssh/known_hosts
-         eval $(ssh-agent -s)
-         ssh-add ~/.ssh/id_rsa
-         ssh $SERVER_USER@$SERVER_HOST "transgenderwachttijd transgenderwachttijd-frontend"
+  deploy:
+    needs: publish
+    runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/production' }}
+    steps:
+      - name: Deploy to production server
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+        run: |
+          mkdir ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+          eval $(ssh-agent -s)
+          ssh-add ~/.ssh/id_rsa
+          ssh $SERVER_USER@$SERVER_HOST "transgenderwachttijd transgenderwachttijd-frontend"
