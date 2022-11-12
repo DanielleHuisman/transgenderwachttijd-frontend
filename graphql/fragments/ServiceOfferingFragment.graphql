@@ -1,0 +1,4 @@
+fragment ServiceOfferingFragment on ServiceOffering {
+    id
+    notes
+}
