@@ -44,7 +44,7 @@ const Home: NextPage<Props> = ({providers, services}) => {
     const {t} = useTranslation();
 
     const [selectedProviders, setSelectedProviders] = useState<string[]>(providers.map((provider) => provider.id));
-    const [selectedServices, setSelectedServices] = useState<string[]>(services.map((service) => service.id));
+    const [selectedServices, setSelectedServices] = useState<string[]>(services.map(([service]) => service.id));
 
     return (
         <Container>
@@ -67,11 +67,11 @@ const Home: NextPage<Props> = ({providers, services}) => {
 
                 <SelectDropdown
                     label={t('services.name', 'Services')}
-                    options={services.map((service) => ({
+                    options={services.map(([service, depth]) => ({
                         value: service.id,
                         label: service.name,
                         style: {
-                            marginLeft: `${2 * service.depth}rem`
+                            marginLeft: `${2 * depth}rem`
                         }
                     }))}
                     value={selectedServices}
