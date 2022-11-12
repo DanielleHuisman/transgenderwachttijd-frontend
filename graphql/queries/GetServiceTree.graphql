@@ -1,0 +1,26 @@
+query GetServiceTree {
+    serviceTree(
+        order: {
+            name: ASC
+        }
+    ) {
+        ...ServiceFragment
+
+        # GraphQL does not support recursive fragments, so the children need to be queried explicitly until the maximum tree depth
+        children(
+            order: {
+                name: ASC
+            }
+        ) {
+            ...ServiceFragment
+
+            children(
+                order: {
+                    name: ASC
+                }
+            ) {
+                ...ServiceFragment
+            }
+        }
+    }
+}

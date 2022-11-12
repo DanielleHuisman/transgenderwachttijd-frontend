@@ -1,6 +1,7 @@
 import type {GetServerSideProps, NextPage} from 'next';
 import {useTranslation} from 'next-i18next';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
+import {useState} from 'react';
 import {Container} from 'reactstrap';
 
 import {SelectDropdown} from '../components/SelectDropdown';
@@ -9,37 +10,41 @@ import {
     GetProvidersDocument,
     GetProvidersQuery,
     GetProvidersQueryVariables,
-    GetServicesDocument,
-    GetServicesQuery,
-    GetServicesQueryVariables,
+    GetServiceTreeDocument,
+    GetServiceTreeQuery,
+    GetServiceTreeQueryVariables,
     ProviderFragment,
     ServiceFragment
 } from '../graphql/generated';
+import {flattenTree, FlatTreeItem} from '../util/tree';
 
 interface Props {
     providers: ProviderFragment[];
-    services: ServiceFragment[];
+    services: FlatTreeItem<ServiceFragment>[];
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async ({locale}) => {
     const {data: {providers}} = await client.query<GetProvidersQuery, GetProvidersQueryVariables>({
         query: GetProvidersDocument
     });
-    const {data: {services}} = await client.query<GetServicesQuery, GetServicesQueryVariables>({
-        query: GetServicesDocument
+    const {data: {serviceTree}} = await client.query<GetServiceTreeQuery, GetServiceTreeQueryVariables>({
+        query: GetServiceTreeDocument
     });
 
     return {
         props: {
             ...(await serverSideTranslations(locale as string)),
             providers,
-            services
+            services: flattenTree(serviceTree)
         }
     };
 };
 
 const Home: NextPage<Props> = ({providers, services}) => {
     const {t} = useTranslation();
+
+    const [selectedProviders, setSelectedProviders] = useState<string[]>(providers.map((provider) => provider.id));
+    const [selectedServices, setSelectedServices] = useState<string[]>(services.map(([service]) => service.id));
 
     return (
         <Container>
@@ -50,6 +55,9 @@ const Home: NextPage<Props> = ({providers, services}) => {
                         value: provider.id,
                         label: provider.name
                     }))}
+                    value={selectedProviders}
+                    onChange={(value) => setSelectedProviders(value)}
+
                     idPrefix="providers"
                     buttonLabel="Update"
                     toggleProps={{color: 'primary', outline: true, style: {width: '10rem'}}}
@@ -59,10 +67,16 @@ const Home: NextPage<Props> = ({providers, services}) => {
 
                 <SelectDropdown
                     label={t('services.name', 'Services')}
-                    options={services.map((service) => ({
+                    options={services.map(([service, depth]) => ({
                         value: service.id,
-                        label: service.name
+                        label: service.name,
+                        style: {
+                            marginLeft: `${2 * depth}rem`
+                        }
                     }))}
+                    value={selectedServices}
+                    onChange={(value) => setSelectedServices(value)}
+
                     idPrefix="services"
                     buttonLabel="Update"
                     toggleProps={{color: 'primary', outline: true, style: {width: '10rem'}}}
