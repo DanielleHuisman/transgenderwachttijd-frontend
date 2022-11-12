@@ -1,0 +1,4 @@
+fragment ServiceTypeFragment on ServiceType {
+    id
+    name
+}

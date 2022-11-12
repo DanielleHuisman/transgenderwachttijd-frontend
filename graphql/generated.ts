@@ -203,6 +203,13 @@ export type DatetimeFilterLookup = {
   startsWith?: InputMaybe<Scalars['DateTime']>;
 };
 
+export type GraphSeries = {
+  __typename?: 'GraphSeries';
+  data: Array<ServiceTime>;
+  id: Scalars['UUID'];
+  label: Scalars['String'];
+};
+
 export type IntFilterLookup = {
   contains?: InputMaybe<Scalars['Int']>;
   endsWith?: InputMaybe<Scalars['Int']>;
@@ -303,6 +310,7 @@ export type Query = {
   articleSourceFeeds: Array<ArticleSourceFeed>;
   articleSources: Array<ArticleSource>;
   articles: Array<Article>;
+  graph: Array<GraphSeries>;
   location: Array<Location>;
   locations: Array<Location>;
   provider: Provider;
@@ -362,6 +370,16 @@ export type QueryArticleSourcesArgs = {
 export type QueryArticlesArgs = {
   filters?: InputMaybe<ArticleFilter>;
   order?: InputMaybe<ArticleOrder>;
+};
+
+
+export type QueryGraphArgs = {
+  end?: InputMaybe<Scalars['Date']>;
+  providerIds?: InputMaybe<Array<Scalars['String']>>;
+  serviceAgeGroupIds?: InputMaybe<Array<Scalars['String']>>;
+  serviceIds?: InputMaybe<Array<Scalars['String']>>;
+  serviceTypeIds?: InputMaybe<Array<Scalars['String']>>;
+  start?: InputMaybe<Scalars['Date']>;
 };
 
 
@@ -664,17 +682,47 @@ export type UuidFilterLookup = {
 
 export type ProviderFragment = { __typename?: 'Provider', id: any, name: string, slug: string, website: string, scrapedAt?: any | null };
 
+export type ServiceAgeGroupFragment = { __typename?: 'ServiceAgeGroup', id: any, name: string };
+
 export type ServiceFragment = { __typename?: 'Service', id: any, name: string, medicalName?: string | null, description?: string | null };
+
+export type ServiceOfferingFragment = { __typename?: 'ServiceOffering', id: any, notes?: string | null };
+
+export type ServiceTimeFragment = { __typename?: 'ServiceTime', id: any, date: any, days?: number | null, isIndividual: boolean };
+
+export type ServiceTypeFragment = { __typename?: 'ServiceType', id: any, name: string };
+
+export type GetGraphQueryVariables = Exact<{
+  providerIds: Array<Scalars['String']> | Scalars['String'];
+  serviceIds: Array<Scalars['String']> | Scalars['String'];
+  serviceAgeGroupIds: Array<Scalars['String']> | Scalars['String'];
+  serviceTypeIds: Array<Scalars['String']> | Scalars['String'];
+  start?: InputMaybe<Scalars['Date']>;
+  end?: InputMaybe<Scalars['Date']>;
+}>;
+
+
+export type GetGraphQuery = { __typename?: 'Query', graph: Array<{ __typename?: 'GraphSeries', id: any, label: string, data: Array<{ __typename?: 'ServiceTime', date: any, days?: number | null, isIndividual: boolean }> }> };
 
 export type GetProvidersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetProvidersQuery = { __typename?: 'Query', providers: Array<{ __typename?: 'Provider', id: any, name: string, slug: string, website: string, scrapedAt?: any | null }> };
 
+export type GetServiceAgeGroupsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetServiceAgeGroupsQuery = { __typename?: 'Query', serviceAgeGroups: Array<{ __typename?: 'ServiceAgeGroup', id: any, name: string }> };
+
 export type GetServiceTreeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetServiceTreeQuery = { __typename?: 'Query', serviceTree: Array<{ __typename?: 'Service', id: any, name: string, medicalName?: string | null, description?: string | null, children: Array<{ __typename?: 'Service', id: any, name: string, medicalName?: string | null, description?: string | null, children: Array<{ __typename?: 'Service', id: any, name: string, medicalName?: string | null, description?: string | null }> }> }> };
+
+export type GetServiceTypesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetServiceTypesQuery = { __typename?: 'Query', serviceTypes: Array<{ __typename?: 'ServiceType', id: any, name: string }> };
 
 export type GetServicesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -682,7 +730,14 @@ export type GetServicesQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetServicesQuery = { __typename?: 'Query', services: Array<{ __typename?: 'Service', id: any, name: string, medicalName?: string | null, description?: string | null }> };
 
 export const ProviderFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ProviderFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Provider"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"website"}},{"kind":"Field","name":{"kind":"Name","value":"scrapedAt"}}]}}]} as unknown as DocumentNode<ProviderFragment, unknown>;
+export const ServiceAgeGroupFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ServiceAgeGroupFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ServiceAgeGroup"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]} as unknown as DocumentNode<ServiceAgeGroupFragment, unknown>;
 export const ServiceFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ServiceFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Service"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"medicalName"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]} as unknown as DocumentNode<ServiceFragment, unknown>;
+export const ServiceOfferingFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ServiceOfferingFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ServiceOffering"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"notes"}}]}}]} as unknown as DocumentNode<ServiceOfferingFragment, unknown>;
+export const ServiceTimeFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ServiceTimeFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ServiceTime"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"days"}},{"kind":"Field","name":{"kind":"Name","value":"isIndividual"}}]}}]} as unknown as DocumentNode<ServiceTimeFragment, unknown>;
+export const ServiceTypeFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ServiceTypeFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ServiceType"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]} as unknown as DocumentNode<ServiceTypeFragment, unknown>;
+export const GetGraphDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetGraph"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"providerIds"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"serviceIds"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"serviceAgeGroupIds"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"serviceTypeIds"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"start"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Date"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"end"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Date"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"graph"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"providerIds"},"value":{"kind":"Variable","name":{"kind":"Name","value":"providerIds"}}},{"kind":"Argument","name":{"kind":"Name","value":"serviceIds"},"value":{"kind":"Variable","name":{"kind":"Name","value":"serviceIds"}}},{"kind":"Argument","name":{"kind":"Name","value":"serviceAgeGroupIds"},"value":{"kind":"Variable","name":{"kind":"Name","value":"serviceAgeGroupIds"}}},{"kind":"Argument","name":{"kind":"Name","value":"serviceTypeIds"},"value":{"kind":"Variable","name":{"kind":"Name","value":"serviceTypeIds"}}},{"kind":"Argument","name":{"kind":"Name","value":"start"},"value":{"kind":"Variable","name":{"kind":"Name","value":"start"}}},{"kind":"Argument","name":{"kind":"Name","value":"end"},"value":{"kind":"Variable","name":{"kind":"Name","value":"end"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"days"}},{"kind":"Field","name":{"kind":"Name","value":"isIndividual"}}]}}]}}]}}]} as unknown as DocumentNode<GetGraphQuery, GetGraphQueryVariables>;
 export const GetProvidersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetProviders"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"providers"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"EnumValue","value":"ASC"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProviderFragment"}}]}}]}},...ProviderFragmentDoc.definitions]} as unknown as DocumentNode<GetProvidersQuery, GetProvidersQueryVariables>;
+export const GetServiceAgeGroupsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetServiceAgeGroups"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"serviceAgeGroups"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"EnumValue","value":"ASC"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ServiceAgeGroupFragment"}}]}}]}},...ServiceAgeGroupFragmentDoc.definitions]} as unknown as DocumentNode<GetServiceAgeGroupsQuery, GetServiceAgeGroupsQueryVariables>;
 export const GetServiceTreeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetServiceTree"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"serviceTree"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"EnumValue","value":"ASC"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ServiceFragment"}},{"kind":"Field","name":{"kind":"Name","value":"children"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"EnumValue","value":"ASC"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ServiceFragment"}},{"kind":"Field","name":{"kind":"Name","value":"children"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"EnumValue","value":"ASC"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ServiceFragment"}}]}}]}}]}}]}},...ServiceFragmentDoc.definitions]} as unknown as DocumentNode<GetServiceTreeQuery, GetServiceTreeQueryVariables>;
+export const GetServiceTypesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetServiceTypes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"serviceTypes"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"EnumValue","value":"ASC"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ServiceTypeFragment"}}]}}]}},...ServiceTypeFragmentDoc.definitions]} as unknown as DocumentNode<GetServiceTypesQuery, GetServiceTypesQueryVariables>;
 export const GetServicesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetServices"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"services"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"EnumValue","value":"ASC"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ServiceFragment"}}]}}]}},...ServiceFragmentDoc.definitions]} as unknown as DocumentNode<GetServicesQuery, GetServicesQueryVariables>;

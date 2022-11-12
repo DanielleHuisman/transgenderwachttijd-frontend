@@ -1,0 +1,6 @@
+fragment ServiceTimeFragment on ServiceTime {
+    id
+    date
+    days
+    isIndividual
+}

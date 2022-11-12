@@ -1,0 +1,4 @@
+fragment ServiceAgeGroupFragment on ServiceAgeGroup {
+    id
+    name
+}

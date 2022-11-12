@@ -1,4 +1,4 @@
-# schema: ${API_URL}/graphql
+# schema: ${NEXT_PUBLIC_API_URL}/graphql
 schema: http://localhost:8000/graphql
 documents: './graphql/**/*.graphql'
 generates:
