@@ -1,4 +1,4 @@
-import {DetailedHTMLProps, HTMLAttributes, useState} from 'react';
+import {CSSProperties, DetailedHTMLProps, HTMLAttributes, useState} from 'react';
 import {
     Button,
     ButtonProps,
@@ -13,12 +13,17 @@ import {
     Label
 } from 'reactstrap';
 
-export interface SelectDropdownProps extends DropdownProps {
+export interface SelectDropdownProps extends Omit<DropdownProps, 'onChange'> {
     label: string;
     options: {
         value: string;
         label: string;
+        className?: string;
+        style?: CSSProperties;
     }[];
+    value: string[];
+    onChange: (value: string[]) => void;
+    onButtonClick?: () => void;
 
     idPrefix?: string;
     buttonLabel?: string;
@@ -30,9 +35,16 @@ export interface SelectDropdownProps extends DropdownProps {
 }
 
 export const SelectDropdown: React.FC<SelectDropdownProps> = ({
-    label, options, idPrefix, buttonLabel, buttonProps, toggleProps, menuProps, wrapperProps, ...props
+    label, options, value, onChange, onButtonClick, idPrefix, buttonLabel, buttonProps, toggleProps, menuProps, wrapperProps, ...props
 }) => {
     const [isOpen, setIsOpen] = useState(false);
+
+    const handleButtonClick = () => {
+        if (onButtonClick) {
+            onButtonClick();
+        }
+        setIsOpen(false);
+    };
 
     return (
         <Dropdown isOpen={isOpen} toggle={() => setIsOpen(!isOpen)} {...props}>
@@ -40,20 +52,29 @@ export const SelectDropdown: React.FC<SelectDropdownProps> = ({
                 {label}
             </DropdownToggle>
             <DropdownMenu className="p-3" {...menuProps}>
-                <div {...wrapperProps}>
-                    {options.map(({value, label}) => (
-                        <FormGroup key={value} check>
-                            <Input id={idPrefix ? `${idPrefix}-${value}` : undefined} type="checkbox" />
-                            <Label for={idPrefix ? `${idPrefix}-${value}` : undefined} check>
-                                {label}
-                            </Label>
-                        </FormGroup>
-                    ))}
+                <div className="p-1" {...wrapperProps}>
+                    {options.map(({value: optionValue, label, className, style}) => {
+                        const isChecked = value.includes(optionValue);
+
+                        return (
+                            <FormGroup key={optionValue} className={className} style={style} check>
+                                <Input
+                                    id={idPrefix ? `${idPrefix}-${optionValue}` : undefined}
+                                    type="checkbox"
+                                    checked={isChecked}
+                                    onChange={() => onChange(isChecked ? value.filter((v) => v !== optionValue) : value.concat([optionValue]))}
+                                />
+                                <Label for={idPrefix ? `${idPrefix}-${optionValue}` : undefined} check>
+                                    {label}
+                                </Label>
+                            </FormGroup>
+                        );
+                    })}
                 </div>
 
                 {buttonLabel && (
                     <div className="d-grid mt-2">
-                        <Button color="primary" {...buttonProps}>{buttonLabel}</Button>
+                        <Button color="primary" onClick={handleButtonClick} {...buttonProps}>{buttonLabel}</Button>
                     </div>
                 )}
             </DropdownMenu>
