@@ -1,5 +1,5 @@
 export type TreeItem<T> = T & {
-    children: (T & TreeItem<T>)[];
+    children?: (T & TreeItem<T>)[];
 };
 
 export type FlatTreeItem<T> = [TreeItem<T>, number];
