@@ -18,7 +18,7 @@ export const ServiceDropdown: React.FC<ServiceDropdownProps> = ({services, value
             label={t('services.name', 'Services')}
             options={services.map(([service, depth]) => ({
                 value: service.id,
-                label: service.name,
+                label: service.medicalName && service.medicalName !== service.name ? `${service.medicalName} (${service.name.toLowerCase()})` : service.name,
                 style: {
                     marginLeft: `${2 * depth}rem`
                 }
