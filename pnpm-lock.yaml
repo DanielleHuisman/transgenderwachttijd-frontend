@@ -1831,7 +1831,7 @@ packages:
       form-data-encoder: 1.7.2
       formdata-node: 4.4.1
       node-fetch: 2.6.7
-      undici: 5.12.0
+      undici: 5.22.1
       web-streams-polyfill: 3.2.1
     transitivePeerDependencies:
       - encoding
@@ -1846,7 +1846,7 @@ packages:
       form-data-encoder: 1.7.2
       formdata-node: 4.4.1
       node-fetch: 2.6.7
-      undici: 5.12.0
+      undici: 5.22.1
       web-streams-polyfill: 3.2.1
     transitivePeerDependencies:
       - encoding
@@ -1861,7 +1861,7 @@ packages:
       form-data-encoder: 1.7.2
       formdata-node: 4.4.1
       node-fetch: 2.6.7
-      undici: 5.12.0
+      undici: 5.22.1
       web-streams-polyfill: 3.2.1
     transitivePeerDependencies:
       - encoding
@@ -5849,9 +5849,9 @@ packages:
       util-deprecate: 1.0.2
     dev: true
 
-  /undici@5.12.0:
-    resolution: {integrity: sha512-zMLamCG62PGjd9HHMpo05bSLvvwWOZgGeiWlN/vlqu3+lRo3elxktVGEyLMX+IO7c2eflLjcW74AlkhEZm15mg==}
-    engines: {node: '>=12.18'}
+  /undici@5.22.1:
+    resolution: {integrity: sha512-Ji2IJhFXZY0x/0tVBXeQwgPlLWw13GVzpsWPQ3rV50IFMMof2I55PZZxtm4P6iNq+L5znYN9nSTAq0ZyE6lSJw==}
+    engines: {node: '>=14.0'}
     dependencies:
       busboy: 1.6.0
     dev: true
