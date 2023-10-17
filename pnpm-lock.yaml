@@ -739,6 +739,11 @@ packages:
       - supports-color
     dev: true
 
+  /@fastify/busboy@2.0.0:
+    resolution: {integrity: sha512-JUFJad5lv7jxj926GPgymrWQxxjPYuJNiNjNMzqT+HiuP6Vl3dk5xzG+8sTX96np0ZAluvaMzPsjhHZ5rNuNQQ==}
+    engines: {node: '>=14'}
+    dev: true
+
   /@graphql-codegen/cli@2.13.11(@types/node@18.11.9)(graphql@16.8.1)(ts-node@10.9.1)(typescript@4.8.4):
     resolution: {integrity: sha512-PJF36a1i6M7Btj1kB4PWWzBUO3u2BJzsd/6KXxRmEugcxrbaCnbTDDktopy0CZYKdqaFbXaowwbRY8Tk8DV99Q==}
     hasBin: true
@@ -1831,7 +1836,7 @@ packages:
       form-data-encoder: 1.7.2
       formdata-node: 4.4.1
       node-fetch: 2.6.7
-      undici: 5.22.1
+      undici: 5.26.3
       web-streams-polyfill: 3.2.1
     transitivePeerDependencies:
       - encoding
@@ -1846,7 +1851,7 @@ packages:
       form-data-encoder: 1.7.2
       formdata-node: 4.4.1
       node-fetch: 2.6.7
-      undici: 5.22.1
+      undici: 5.26.3
       web-streams-polyfill: 3.2.1
     transitivePeerDependencies:
       - encoding
@@ -1861,7 +1866,7 @@ packages:
       form-data-encoder: 1.7.2
       formdata-node: 4.4.1
       node-fetch: 2.6.7
-      undici: 5.22.1
+      undici: 5.26.3
       web-streams-polyfill: 3.2.1
     transitivePeerDependencies:
       - encoding
@@ -5849,11 +5854,11 @@ packages:
       util-deprecate: 1.0.2
     dev: true
 
-  /undici@5.22.1:
-    resolution: {integrity: sha512-Ji2IJhFXZY0x/0tVBXeQwgPlLWw13GVzpsWPQ3rV50IFMMof2I55PZZxtm4P6iNq+L5znYN9nSTAq0ZyE6lSJw==}
+  /undici@5.26.3:
+    resolution: {integrity: sha512-H7n2zmKEWgOllKkIUkLvFmsJQj062lSm3uA4EYApG8gLuiOM0/go9bIoC3HVaSnfg4xunowDE2i9p8drkXuvDw==}
     engines: {node: '>=14.0'}
     dependencies:
-      busboy: 1.6.0
+      '@fastify/busboy': 2.0.0
     dev: true
 
   /unique-stream@2.3.1:
