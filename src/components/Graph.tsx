@@ -16,7 +16,7 @@ const Chart = dynamic(() => import('react-charts').then((mod) => mod.Chart), {
     ssr: false
 });
 
-type PartialSerivceTime = Pick<ServiceTime, 'date' | 'days' | 'isIndividual'>;
+type PartialSerivceTime = Pick<ServiceTime, 'days' | 'isIndividual'> & {date: Date};
 
 const primaryAxis: AxisOptions<PartialSerivceTime> = {
     getValue: (serviceTime) => serviceTime.date
@@ -45,7 +45,19 @@ export const Graph: React.FC<GraphProps> = ({providerIds, serviceIds, serviceAge
         }
     });
 
-    const graphData = useMemo(() => (data ? data.graph : []), [data]);
+    const graphData = useMemo(
+        () =>
+            data
+                ? data.graph.map(({data, ...series}) => ({
+                      data: data.map(({date, ...serviceTime}) => ({
+                          date: new Date(date),
+                          ...serviceTime
+                      })),
+                      ...series
+                  }))
+                : [],
+        [data]
+    );
 
     if (loading) {
         return <Spinner />;

@@ -1,11 +1,11 @@
 # schema: ${NEXT_PUBLIC_API_URL}/graphql
 schema: http://localhost:8000/graphql
 documents:
-    - './graphql/**/*.graphql'
+    - './src/graphql/**/*.graphql'
 extensions:
     codegen:
         generates:
-            ./graphql/generated.ts:
+            ./src/graphql/generated.ts:
                 plugins:
                     - '@graphql-codegen/typescript'
                     - '@graphql-codegen/typescript-operations'
