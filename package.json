@@ -2,12 +2,12 @@
     "name": "transgenderwachttijd-frontend",
     "description": "Tracking waiting times for transgender health care in the Netherlands.",
     "version": "0.1.0",
-    "license": "UNLICENSED",
+    "license": "MIT",
     "private": true,
     "contributors": [
-        "Daniel Huisman <daniel@huisman.me> (https://danielhuisman.io)"
+        "Danielle Huisman <danielle@huisman.me> (https://github.com/DanielleHuisman)"
     ],
-    "repository": "github:DanielHuisman/transgenderwachttijd-frontend",
+    "repository": "github:DanielleHuisman/transgenderwachttijd-frontend",
     "keywords": [
         "transgender",
         "trans",
