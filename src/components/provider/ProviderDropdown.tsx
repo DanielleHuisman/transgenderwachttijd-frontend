@@ -1,6 +1,6 @@
 import {useTranslation} from 'next-i18next';
 
-import {ProviderFragment} from '../../graphql/generated';
+import type {ProviderFragment} from '../../graphql/generated';
 import {SelectDropdown} from '../SelectDropdown';
 
 export interface ProviderDropdownProps {
@@ -21,7 +21,6 @@ export const ProviderDropdown: React.FC<ProviderDropdownProps> = ({providers, va
             }))}
             value={value}
             onChange={onChange}
-
             idPrefix="providers"
             // buttonLabel="Update"
             toggleProps={{color: 'primary', outline: true, style: {width: '10rem'}}}

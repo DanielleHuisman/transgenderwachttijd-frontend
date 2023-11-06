@@ -1,28 +1,31 @@
 import {useTranslation} from 'next-i18next';
 
-import {ServiceTypeFragment} from '../../graphql/generated';
+import type {ServiceAgeGroupFragment} from '../../graphql/generated';
 import {SelectDropdown} from '../SelectDropdown';
 
-export interface ServiceTypeDropdownProps {
-    serviceTypes: ServiceTypeFragment[];
+export interface ServiceAgeGroupDropdownProps {
+    serviceAgeGroups: ServiceAgeGroupFragment[];
     value: string[];
     onChange: (services: string[]) => void;
 }
 
-export const ServiceTypeDropdown: React.FC<ServiceTypeDropdownProps> = ({serviceTypes, value, onChange}) => {
+export const ServiceAgeGroupDropdown: React.FC<ServiceAgeGroupDropdownProps> = ({
+    serviceAgeGroups,
+    value,
+    onChange
+}) => {
     const {t} = useTranslation();
 
     return (
         <SelectDropdown
-            label={t('serviceTypes.name', 'Types')}
-            options={serviceTypes.map((serviceType) => ({
-                value: serviceType.id,
-                label: serviceType.name
+            label={t('serviceAgeGroups.name', 'Age groups')}
+            options={serviceAgeGroups.map((ageGroup) => ({
+                value: ageGroup.id,
+                label: ageGroup.name
             }))}
             value={value}
             onChange={onChange}
-
-            idPrefix="service-types"
+            idPrefix="service-age-groups"
             // buttonLabel="Update"
             toggleProps={{color: 'primary', outline: true, style: {width: '10rem'}}}
             menuProps={{style: {width: '20rem'}}}

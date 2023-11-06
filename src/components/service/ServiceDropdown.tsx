@@ -1,7 +1,7 @@
 import {useTranslation} from 'next-i18next';
 
-import {ServiceFragment} from '../../graphql/generated';
-import {FlatTreeItem} from '../../util/tree';
+import type {ServiceFragment} from '../../graphql/generated';
+import type {FlatTreeItem} from '../../util/tree';
 import {SelectDropdown} from '../SelectDropdown';
 
 export interface ServiceDropdownProps {
@@ -18,14 +18,16 @@ export const ServiceDropdown: React.FC<ServiceDropdownProps> = ({services, value
             label={t('services.name', 'Services')}
             options={services.map(([service, depth]) => ({
                 value: service.id,
-                label: service.medicalName && service.medicalName !== service.name ? `${service.medicalName} (${service.name.toLowerCase()})` : service.name,
+                label:
+                    service.medicalName && service.medicalName !== service.name
+                        ? `${service.medicalName} (${service.name.toLowerCase()})`
+                        : service.name,
                 style: {
                     marginLeft: `${2 * depth}rem`
                 }
             }))}
             value={value}
             onChange={onChange}
-
             idPrefix="services"
             // buttonLabel="Update"
             toggleProps={{color: 'primary', outline: true, style: {width: '10rem'}}}

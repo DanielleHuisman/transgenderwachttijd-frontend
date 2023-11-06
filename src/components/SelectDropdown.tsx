@@ -1,13 +1,13 @@
-import {CSSProperties, DetailedHTMLProps, HTMLAttributes, useState} from 'react';
+import {type CSSProperties, type DetailedHTMLProps, type HTMLAttributes, useState} from 'react';
 import {
     Button,
-    ButtonProps,
+    type ButtonProps,
     Dropdown,
     DropdownMenu,
-    DropdownMenuProps,
-    DropdownProps,
+    type DropdownMenuProps,
+    type DropdownProps,
     DropdownToggle,
-    DropdownToggleProps,
+    type DropdownToggleProps,
     FormGroup,
     Input,
     Label
@@ -35,7 +35,18 @@ export interface SelectDropdownProps extends Omit<DropdownProps, 'onChange'> {
 }
 
 export const SelectDropdown: React.FC<SelectDropdownProps> = ({
-    label, options, value, onChange, onButtonClick, idPrefix, buttonLabel, buttonProps, toggleProps, menuProps, wrapperProps, ...props
+    label,
+    options,
+    value,
+    onChange,
+    onButtonClick,
+    idPrefix,
+    buttonLabel,
+    buttonProps,
+    toggleProps,
+    menuProps,
+    wrapperProps,
+    ...props
 }) => {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -62,7 +73,13 @@ export const SelectDropdown: React.FC<SelectDropdownProps> = ({
                                     id={idPrefix ? `${idPrefix}-${optionValue}` : undefined}
                                     type="checkbox"
                                     checked={isChecked}
-                                    onChange={() => onChange(isChecked ? value.filter((v) => v !== optionValue) : value.concat([optionValue]))}
+                                    onChange={() =>
+                                        onChange(
+                                            isChecked
+                                                ? value.filter((v) => v !== optionValue)
+                                                : value.concat([optionValue])
+                                        )
+                                    }
                                 />
                                 <Label for={idPrefix ? `${idPrefix}-${optionValue}` : undefined} check>
                                     {label}
@@ -74,7 +91,9 @@ export const SelectDropdown: React.FC<SelectDropdownProps> = ({
 
                 {buttonLabel && (
                     <div className="d-grid mt-2">
-                        <Button color="primary" onClick={handleButtonClick} {...buttonProps}>{buttonLabel}</Button>
+                        <Button color="primary" onClick={handleButtonClick} {...buttonProps}>
+                            {buttonLabel}
+                        </Button>
                     </div>
                 )}
             </DropdownMenu>

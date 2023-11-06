@@ -1,9 +1,0 @@
-query GetServiceAgeGroups {
-    serviceAgeGroups(
-        order: {
-            name: ASC
-        }
-    ) {
-        ...ServiceAgeGroupFragment
-    }
-}

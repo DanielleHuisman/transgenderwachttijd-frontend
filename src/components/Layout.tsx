@@ -1,4 +1,3 @@
-
 import {Header} from './Header';
 
 export const Layout: React.FC<React.PropsWithChildren> = ({children}) => (
@@ -7,8 +6,6 @@ export const Layout: React.FC<React.PropsWithChildren> = ({children}) => (
             <Header />
         </header>
 
-        <main>
-            {children}
-        </main>
+        <main>{children}</main>
     </>
 );

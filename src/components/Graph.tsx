@@ -7,9 +7,9 @@ import {Spinner} from 'reactstrap';
 
 import {
     GetGraphDocument,
-    GetGraphQuery,
-    GetGraphQueryVariables,
-    ServiceTime
+    type GetGraphQuery,
+    type GetGraphQueryVariables,
+    type ServiceTime
 } from '../graphql/generated';
 
 const Chart = dynamic(() => import('react-charts').then((mod) => mod.Chart), {
@@ -45,16 +45,7 @@ export const Graph: React.FC<GraphProps> = ({providerIds, serviceIds, serviceAge
         }
     });
 
-    const graphData = useMemo(
-        () => data ? data.graph.map(({data, ...series}) => ({
-            data: data.map(({date, ...serviceTime}) => ({
-                date: new Date(date),
-                ...serviceTime
-            })),
-            ...series
-        })) : [],
-        [data]
-    );
+    const graphData = useMemo(() => (data ? data.graph : []), [data]);
 
     if (loading) {
         return <Spinner />;
@@ -75,12 +66,14 @@ export const Graph: React.FC<GraphProps> = ({providerIds, serviceIds, serviceAge
 
                 {graphData.length > 0 && (
                     <Chart
-                        // @ts-ignore: options is not compatible due to the weird import
-                        options={{
-                            data: graphData,
-                            primaryAxis,
-                            secondaryAxes: [secondaryAxis]
-                        } as ChartOptions<PartialSerivceTime>}
+                        // @ts-expect-error: options is not compatible due to the weird import
+                        options={
+                            {
+                                data: graphData,
+                                primaryAxis,
+                                secondaryAxes: [secondaryAxis]
+                            } as ChartOptions<PartialSerivceTime>
+                        }
                     />
                 )}
             </div>

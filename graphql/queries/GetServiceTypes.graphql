@@ -1,9 +1,0 @@
-query GetServiceTypes {
-    serviceTypes(
-        order: {
-            name: ASC
-        }
-    ) {
-        ...ServiceTypeFragment
-    }
-}
