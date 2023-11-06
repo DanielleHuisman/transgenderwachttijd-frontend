@@ -1,0 +1,20 @@
+# schema: ${NEXT_PUBLIC_API_URL}/graphql
+schema: http://localhost:8000/graphql
+documents:
+    - './graphql/**/*.graphql'
+extensions:
+    codegen:
+        generates:
+            ./graphql/generated.ts:
+                plugins:
+                    - '@graphql-codegen/typescript'
+                    - '@graphql-codegen/typescript-operations'
+                    - '@graphql-codegen/typed-document-node'
+                config:
+                    dedupeOperationSuffix: true
+                    namingConvention: keep
+                    scalars:
+                        Date: string
+                        DateTime: string
+                        UUID: string
+                    useTypeImports: true

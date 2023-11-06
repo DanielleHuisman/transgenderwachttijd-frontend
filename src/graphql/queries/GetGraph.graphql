@@ -1,0 +1,25 @@
+query GetGraph(
+    $providerIds: [String!]!
+    $serviceIds: [String!]!
+    $serviceAgeGroupIds: [String!]!
+    $serviceTypeIds: [String!]!
+    $start: Date
+    $end: Date
+) {
+    graph(
+        providerIds: $providerIds
+        serviceIds: $serviceIds
+        serviceAgeGroupIds: $serviceAgeGroupIds
+        serviceTypeIds: $serviceTypeIds
+        start: $start
+        end: $end
+    ) {
+        id
+        label
+        data {
+            date
+            days
+            isIndividual
+        }
+    }
+}
